@@ -5,7 +5,7 @@ import { BOOKS_FETCH_REQUESTED } from '../../store/actions/types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {  getBooklist , getGenres} from '../../store/actions/index';
+import {  getBooklist , getGenres, getMostPopularBooks} from '../../store/actions/index';
 import DropdownGenres from './dropdown-genres';
 
 
@@ -25,7 +25,7 @@ class Navbar extends Component {
                         <span  onClick={() => this.props.vratiListu()  } ><Navlink to="/booklist" >Knjige</Navlink></span> 
                     </li>
                     <li className="nav-item">
-                        <Navlink to="/" >Najpopularnije</Navlink>  
+                        <span  onClick={() => this.props.vratiNajpopularnije() } ><Navlink to="/booklist" >Najpopularnije</Navlink></span>  
                     </li>
                     <li className="nav-item dropdown" onClick={ () => this.props.vratiZanrove()}>
                         <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -62,7 +62,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         vratiListu: getBooklist,
-        vratiZanrove: getGenres
+        vratiZanrove: getGenres,
+        vratiNajpopularnije : getMostPopularBooks
     }, dispatch)
 }
 

@@ -1,7 +1,9 @@
 import { takeLatest, takeEvery } from 'redux-saga/effects';
 import { call, put, all, fork} from 'redux-saga/effects';
 import { BOOKS_FETCH_REQUESTED, BOOKS_FETCH_DONE, 
-                GENRES_FETCH_DONE, GENRES_FETCH_REQUESTED , FETCH_BOOKS_BY_GENRE } from '../store/actions/types';
+        GENRES_FETCH_DONE, GENRES_FETCH_REQUESTED , FETCH_BOOKS_BY_GENRE, 
+         FETCH_MOST_POPULAR_BOOKS_REQ, FETCH_MOST_POPULAR_BOOKS_DONE
+        ,FETCH_SEARCHED_BOOKS, FETCH_SEARCHED_BOOKS_DONE} from '../store/actions/types';
 import {getBooks} from '../services/books.service';
 import { getGenres} from '../services/zanr.service';
 import request from 'superagent';
@@ -25,24 +27,14 @@ function* callGetBooks({zanr=null}) {
     if(zanr===null) {
         yield put({type: BOOKS_FETCH_DONE,  payload: books });
     }
-    else {
-        let filtriraneKnjige = books.filter((book) => {
-            if(book.zanr == zanr) {
-                return book;
-            }
-        }); 
-        if(filtriraneKnjige.length === 0) {
-            filtriraneKnjige = [{naslov: "Nema knjiga..", id:1}]
-        }
-        
-        yield put({type: FETCH_BOOKS_BY_GENRE, payload: filtriraneKnjige});
-        
+    else {        
+        yield put({type: FETCH_BOOKS_BY_GENRE, payload: books, zanr: zanr});
     }
 }
 function* getBooksSaga() {
     console.log("uso u getBooksSaga, treba da okine akciju")
     yield takeLatest(BOOKS_FETCH_REQUESTED, callGetBooks);
-    //console.log("Pozvan sam")
+    
 }
 
 
@@ -58,9 +50,36 @@ function* getGenresSaga() {
 }
 
 
+
+
+function* callgetMostPopularBooks() {
+    const books = yield call(getBooks);
+    yield put({ type: FETCH_MOST_POPULAR_BOOKS_DONE, payload: books});
+}
+
+function* getMostPopularBooksSaga() {
+    console.log("uso u getMostPopularBooksSaga");
+    yield takeLatest(FETCH_MOST_POPULAR_BOOKS_REQ, callgetMostPopularBooks )
+}
+
+
+function* callSearchBooks({payload}) {
+    const books = yield call(getBooks);
+    yield put({ type: FETCH_SEARCHED_BOOKS_DONE , pattern: payload, books: books});
+}
+
+function* searchBooksSaga() {
+
+    console.log("uso u searchBookSaga");
+    yield takeLatest(FETCH_SEARCHED_BOOKS, callSearchBooks );
+}
+
+
 export default function* root() {
-    yield[
-           fork(getBooksSaga),
-           fork(getGenresSaga)
+    yield [
+        fork(getBooksSaga),
+        fork(getGenresSaga),
+        fork(getMostPopularBooksSaga),
+        fork(searchBooksSaga)
     ]
 }

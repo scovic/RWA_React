@@ -1,4 +1,5 @@
-import { BOOKS_FETCH_REQUESTED, GENRES_FETCH_REQUESTED } from './types';
+import { BOOKS_FETCH_REQUESTED, GENRES_FETCH_REQUESTED, FETCH_MOST_POPULAR_BOOKS_REQ 
+        ,FETCH_SEARCHED_BOOKS } from './types';
 import booklist from '../../components/book-list';
 
 
@@ -23,6 +24,21 @@ export function getBookByGenre(genre) {
     return {
         type: BOOKS_FETCH_REQUESTED,
         zanr: genre
+    }
+}
+
+export function getMostPopularBooks() {
+    console.log("uso u getMostPopularBooks");
+    return {
+        type: FETCH_MOST_POPULAR_BOOKS_REQ
+    }
+}
+
+export function getBooksBySearch(pattern) {
+    console.log("uso u getBooksBySearch");
+    return {
+        type: FETCH_SEARCHED_BOOKS,
+        payload: pattern
     }
 }
 
