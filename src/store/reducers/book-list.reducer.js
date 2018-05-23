@@ -1,5 +1,5 @@
 import { BOOKS_FETCH_DONE, FETCH_BOOKS_BY_GENRE, FETCH_MOST_POPULAR_BOOKS_DONE
-        , FETCH_SEARCHED_BOOKS_DONE} from '../actions/types';
+        , FETCH_SEARCHED_BOOKS_DONE, ADD_BOOK_DONE} from '../actions/types';
 
 
 function showBooksReducer(state = [], action) {
@@ -45,6 +45,9 @@ function showBooksReducer(state = [], action) {
             if(searchResult.length === 0) 
                 return books;
             return searchResult;
+        }
+        case ADD_BOOK_DONE: {
+            return action.payload;
         }
         default:
             return state;

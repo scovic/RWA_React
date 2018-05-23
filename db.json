@@ -71,6 +71,10 @@
     {
       "id": 4,
       "naziv": "Komedija"
+    },
+    {
+      "id": 5,
+      "naziv": "Novi novo"
     }
   ]
 }

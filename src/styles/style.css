@@ -25,10 +25,17 @@ li {
     .forma {
         width: 80%;
     }
+
+    .prikazKnjige {
+        width: 80%;
+    }
 }
 
 @media only screen and (max-width: 450px) {
     .forma {
+        width: 100%;
+    }
+    .prikazKnjige {
         width: 100%;
     }
 }
@@ -51,8 +58,9 @@ li {
 }
 
 .prikazKnjige {
-    margin: 2% 0;
+    margin: 2% auto;
     padding: 2%;
+    width: 65%;
     border: 1px solid black;
     border-radius: 8px;
 }

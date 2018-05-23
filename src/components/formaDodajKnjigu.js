@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getGenres} from '../store/actions/index';
+import { getGenres, addBook} from '../store/actions/index';
 
 
 class FormaDodajKnjigu extends Component {
@@ -24,29 +24,43 @@ class FormaDodajKnjigu extends Component {
     render() {
         return ( 
             <div className="forma form-group">
-                <p><span className="labela">Naslov: </span> <input type='text' /></p>
-                <p><span className="labela">Autor: </span> <input type='text' /></p>
-                <p><span className="labela">Žanr:</span></p>
+                <p><span className="labela">Naslov: </span> <input type='text' ref='_naslov'/></p>
+                <p><span className="labela">Autor: </span> <input type='text' ref='_autor' /></p>    
                 <p>
-                    <select>
+                    <span className="labela">Žanr:</span>
+                    <select ref='_zanr' >
                         { this.props.zanrovi.map((zanr, index) => {
                             if( index == 0) {
-                                return <option selected value={zanr.naziv}>{zanr.naziv}</option>
+                                return <option selected key={index} value={zanr.naziv}>{zanr.naziv}</option>
                             }
 
-                            return <option value={zanr.naziv}>{zanr.naziv}</option>
+                            return <option value={zanr.naziv} key={index}>{zanr.naziv}</option>
                         })}
                     </select>
                 </p>
-                <button type='button' onClick={this.dodajKnjigu}>Dodaj knjigu</button>
+                <button type='button' onClick={() => this.dodajKnjigu()}>Dodaj knjigu</button>
             </div>
         )
     }
 
 
     dodajKnjigu() {
-        //dodavanje knjige
-        console.log("dodao knjigu");
+        
+            const detalji = {
+                naslov: this.refs._naslov.value,
+                autor: this.refs._autor.value,
+                zanr: this.refs._zanr.value
+            }
+            
+            this.props.addBook(detalji);
+        
+            this.ocistiUnos();
+    }
+
+    ocistiUnos() {
+        this.refs._naslov.value= "";
+        this.refs._autor.value= "";
+        this.refs._zanr.value= "";
     }
 
 }
@@ -59,7 +73,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        vratiZanrove: getGenres
+        vratiZanrove: getGenres,
+        addBook: addBook
     }, dispatch);
 }
 

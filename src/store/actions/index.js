@@ -1,5 +1,6 @@
 import { BOOKS_FETCH_REQUESTED, GENRES_FETCH_REQUESTED, FETCH_MOST_POPULAR_BOOKS_REQ 
-        ,FETCH_SEARCHED_BOOKS } from './types';
+        ,FETCH_SEARCHED_BOOKS, ADD_BOOK_REQ,
+        ADD_GENRE_REQ } from './types';
 import booklist from '../../components/book-list';
 
 
@@ -39,6 +40,22 @@ export function getBooksBySearch(pattern) {
     return {
         type: FETCH_SEARCHED_BOOKS,
         payload: pattern
+    }
+}
+
+export function addBook(details) {
+    console.log("uso u addBook");
+    return {
+        type: ADD_BOOK_REQ,
+        payload: details
+    }
+}
+
+export function addGenre(naziv) {
+    console.log("uso u addGenre");
+    return {
+        type: ADD_GENRE_REQ,
+        payload: naziv
     }
 }
 
