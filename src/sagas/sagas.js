@@ -6,22 +6,13 @@ import { BOOKS_FETCH_REQUESTED, BOOKS_FETCH_DONE,
          FETCH_MOST_POPULAR_BOOKS_REQ, FETCH_MOST_POPULAR_BOOKS_DONE
         ,FETCH_SEARCHED_BOOKS, FETCH_SEARCHED_BOOKS_DONE,
         ADD_BOOK_DONE, ADD_BOOK_REQ,
-        ADD_GENRE_DONE, ADD_GENRE_REQ} from '../store/actions/types';
+        ADD_GENRE_DONE, ADD_GENRE_REQ, 
+        DELETE_REQ,
+        UPDATE_REQ} from '../store/actions/types';
 
 
-import {getBooks, addBook} from '../services/books.service';
+import {getBooks, getBooksById, addBook, deleteBook, updateBook} from '../services/books.service';
 import { getGenres, addGenre} from '../services/zanr.service';
-import request from 'superagent';
-
-function getBooks2() {
-    console.log("uso u getbooks2, ovde zovi api")
-    const url = "http://localhost:3000/knjige/";
-    return request
-           .get(url)
-           .then((data)=>{
-               return JSON.parse(data.text);
-           })
-}
 
 
 
@@ -41,6 +32,8 @@ function* getBooksSaga() {
     yield takeLatest(BOOKS_FETCH_REQUESTED, callGetBooks);
     
 }
+
+
 
 
 function* callGetGenres({resolve, reject}) {
@@ -68,6 +61,7 @@ function* getMostPopularBooksSaga() {
 }
 
 
+
 function* callSearchBooks({payload}) {
     const books = yield call(getBooks);
     yield put({ type: FETCH_SEARCHED_BOOKS_DONE , pattern: payload, books: books});
@@ -79,9 +73,21 @@ function* searchBooksSaga() {
     yield takeLatest(FETCH_SEARCHED_BOOKS, callSearchBooks );
 }
 
+
+
 function* callAddBook({ payload }) {
     const books = yield call(getBooks);
-    let newId = books.length + 1;
+    let newId = 0;
+
+    books.forEach((book) => {
+        if(book.id > newId) {
+            newId = book.id;
+        }
+
+    });
+
+    newId +=1;
+
     const newBook = {
         "id" : newId,
         "naslov": payload.naslov,
@@ -105,7 +111,14 @@ function* addBookSaga() {
 
 function* callAddGenre({ payload }) {
     const genres = yield call(getGenres);
-    let newId = genres.length +1 ;
+    let newId = 0;
+    genres.forEach((genre) => {
+        if(genre.id > newId) {
+            newId = genre.id;
+        }
+    });
+
+    newId += 1;
      const newGenre = {
          "id": newId,
          "naziv": payload
@@ -120,6 +133,46 @@ function* addGenreSaga() {
     yield takeLatest(ADD_GENRE_REQ, callAddGenre);
 }
 
+
+function* callDeleteBook({payload}) {
+    console.log("uso u callDeleteBook");
+    yield call(deleteBook, payload);
+
+    const books = yield call(getBooks);
+
+    yield put({type: BOOKS_FETCH_DONE, payload: books});
+}
+
+function* deleteBookSaga() {
+    console.log("uso u deleteBookSaga");
+    yield takeEvery(DELETE_REQ, callDeleteBook);
+}
+
+
+
+function* callUpdateBook({payload}) {
+    const book = yield call(getBooksById, payload.id);
+
+    if(payload.key === "like") {
+        book.likes += 1;
+    } else if (payload.key === "dislike") {
+        book.dislikes += 1;
+    } else if( payload.key === "izdavanje") {
+        book.brojIzdavanja += 1;
+    }
+
+    yield call(updateBook, book, book.id);
+
+    const books = yield call(getBooks);
+
+    yield put({type: BOOKS_FETCH_DONE, payload: books});
+}
+
+function* updateBookSaga() {
+    console.log("uso u updateBookSaga");
+    yield takeEvery(UPDATE_REQ, callUpdateBook);
+}
+
 export default function* root() {
     yield [
         fork(getBooksSaga),
@@ -127,6 +180,8 @@ export default function* root() {
         fork(getMostPopularBooksSaga),
         fork(searchBooksSaga),
         fork(addBookSaga),
-        fork(addGenreSaga)
+        fork(addGenreSaga),
+        fork(deleteBookSaga),
+        fork(updateBookSaga)
     ]
 }

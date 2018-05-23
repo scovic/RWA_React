@@ -17,7 +17,7 @@ function showBooksReducer(state = [], action) {
             }); 
 
             if(filteredBooks.length === 0) {
-                filteredBooks = [{naslov: "Nema knjiga..", id:1}]
+                filteredBooks = null
             }
 
             return filteredBooks;

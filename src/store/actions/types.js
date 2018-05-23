@@ -10,4 +10,6 @@ export const FETCH_SEARCHED_BOOKS_DONE = 'FETCH_SEARCHED_BOOKS_DONE';
 export const ADD_BOOK_REQ = 'ADD_BOOK_REQ';
 export const ADD_BOOK_DONE = 'ADD_BOOK_DONE';
 export const ADD_GENRE_REQ = 'ADD_GENRE_REQ';
-export const ADD_GENRE_DONE = 'ADD_GENRE_DONE';  
+export const ADD_GENRE_DONE = 'ADD_GENRE_DONE';
+export const UPDATE_REQ = 'UPDATE_REQ';  
+export const DELETE_REQ = 'DELETE_REQ';

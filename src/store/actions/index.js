@@ -1,6 +1,8 @@
 import { BOOKS_FETCH_REQUESTED, GENRES_FETCH_REQUESTED, FETCH_MOST_POPULAR_BOOKS_REQ 
         ,FETCH_SEARCHED_BOOKS, ADD_BOOK_REQ,
-        ADD_GENRE_REQ } from './types';
+        ADD_GENRE_REQ, 
+        UPDATE_REQ,
+        DELETE_REQ} from './types';
 import booklist from '../../components/book-list';
 
 
@@ -56,6 +58,26 @@ export function addGenre(naziv) {
     return {
         type: ADD_GENRE_REQ,
         payload: naziv
+    }
+}
+
+
+export function updateBook(id, key) {
+    console.log("uso u updateBook");
+    return {
+        type: UPDATE_REQ,
+        payload: {
+            id: id,
+            key: key
+        }
+    }
+}
+
+export function deleteBook(id) {
+    console.log("uso u deleteBook");
+    return {
+        type: DELETE_REQ,
+        payload: id
     }
 }
 

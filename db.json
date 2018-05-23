@@ -5,17 +5,17 @@
       "naslov": "Harry Potter",
       "autor": "J. K. Rowling",
       "zanr": "Fantastika",
-      "likes": 30,
-      "dislikes": 4,
-      "brojIzdavanja": 76
+      "likes": 42,
+      "dislikes": 6,
+      "brojIzdavanja": 84
     },
     {
       "id": 2,
       "naslov": "The Lord of the Rings - The Fellowship of the Ring",
       "autor": "J. R. R. Tolkien",
       "zanr": "Fantastika",
-      "likes": 32,
-      "dislikes": 6,
+      "likes": 37,
+      "dislikes": 9,
       "brojIzdavanja": 117
     },
     {
@@ -53,6 +53,15 @@
       "likes": 58,
       "dislikes": 5,
       "brojIzdavanja": 176
+    },
+    {
+      "id": 7,
+      "naslov": "neka nova",
+      "autor": "stefan",
+      "zanr": "Istorijski roman",
+      "likes": 1,
+      "dislikes": 0,
+      "brojIzdavanja": 0
     }
   ],
   "zanr": [
@@ -71,10 +80,6 @@
     {
       "id": 4,
       "naziv": "Komedija"
-    },
-    {
-      "id": 5,
-      "naziv": "Novi novo"
     }
   ]
 }
