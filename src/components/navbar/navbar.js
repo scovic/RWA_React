@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Navlink from './navlink';
-import Dropdown from './dropdown';
 import Search from './search';
+import { BOOKS_FETCH_REQUESTED } from '../../store/actions/types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {  getBooklist , getGenres} from '../../store/actions/index';
+import DropdownGenres from './dropdown-genres';
 
 
-export default class Navbar extends Component {
+class Navbar extends Component {
 
     render() {
         return (
@@ -14,24 +19,30 @@ export default class Navbar extends Component {
                        Biblioteka
                     </li>
                     <li className="nav-item">
-                        <Navlink to="/home" >Home</Navlink>  
+                        <Navlink to="/" >Home</Navlink>  
                     </li>
                     <li className="nav-item">
-                        <Navlink to="/" >Knjige</Navlink>  
+                        <span  onClick={() => this.props.vratiListu()  } ><Navlink to="/booklist" >Knjige</Navlink></span> 
                     </li>
                     <li className="nav-item">
                         <Navlink to="/" >Najpopularnije</Navlink>  
                     </li>
-                    <li className="nav-item dropdown">
+                    <li className="nav-item dropdown" onClick={ () => this.props.vratiZanrove()}>
                         <a className="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                           Žanrovi
                         </a>
-                        <div className="dropdown-menu" id="drop">
-                            <span className="dropdown-item">Loading...</span>
+                        <div className="dropdown-menu" >
+                           <DropdownGenres />
                         </div>
                       </li>
                     <li className="nav-item dropdown">
-                        <Dropdown />   
+                        <a className="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            Dodavanje
+                        </a>
+                        <div className="dropdown-menu">
+                            <Navlink to='/DodajKnjigu' ><span className="dropdown-item crna-slova">Dodaj knjigu</span></Navlink>
+                            <Navlink to='/DodajZanr' ><span className="dropdown-item crna-slova">Dodaj žanr</span></Navlink> 
+                        </div>
                     </li>
                     <li className="nav-item">
                         <Search />
@@ -41,3 +52,18 @@ export default class Navbar extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        zanrovi: state.genres
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        vratiListu: getBooklist,
+        vratiZanrove: getGenres
+    }, dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Navbar)

@@ -8,14 +8,33 @@ li {
 .prikaz-centar {
     
     margin: auto;
-    width: 40%;
+    width: 65%;
 }
 
 .forma {
-    margin: 5% 0;
+    
+    margin: auto;
+    margin-top: 3%;
+    width: 65%;
     padding: 10%;
     border: 1px solid black;
     border-radius: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .forma {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .forma {
+        width: 100%;
+    }
+}
+
+.crna-slova {
+    color:black;
 }
 
 .welcome-message {
@@ -40,4 +59,8 @@ li {
 
 .prikazKnjige:hover {
     background-color:lightgray;
+}
+
+.labela {
+    margin-right: 7px;
 }
