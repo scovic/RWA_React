@@ -9,15 +9,6 @@ import {updateBook, deleteBook } from '../store/actions/index';
 
 class BookList extends Component {
 
-    constructor(props) {
-        super(props);
-        this.like = this.like.bind(this);
-        this.dislike = this.dislike.bind(this);
-        this.izdajKnjigu = this.izdajKnjigu.bind(this);
-        this.ukloni = this.ukloni.bind(this);
-    }
-
-
     render() {
         return (
             <ul>
@@ -65,21 +56,6 @@ class BookList extends Component {
         })
     }
 
-    like() {
-        console.log("lajkovao");
-    }
-
-    dislike() {
-        console.log("dislajkovao");
-    }
-
-    izdajKnjigu() {
-        console.log("izdao");
-    }
-
-    ukloni() {
-        
-    }
 
 }
 

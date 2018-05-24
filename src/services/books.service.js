@@ -1,6 +1,5 @@
 
 export function getBooks() {
-    console.log("api pozvan")
     return fetch('http://localhost:3000/knjige')
                 .then( response => response.json())
 }

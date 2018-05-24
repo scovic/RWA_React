@@ -17,9 +17,8 @@ import { getGenres, addGenre} from '../services/zanr.service';
 
 
 function* callGetBooks({zanr=null}) {
-    console.log("Uso u call")
+    
     const books = yield call(getBooks);
-    console.log("Books in saga: " + books);
     if(zanr===null) {
         yield put({type: BOOKS_FETCH_DONE,  payload: books });
     }
@@ -37,14 +36,12 @@ function* getBooksSaga() {
 
 
 function* callGetGenres({resolve, reject}) {
-    console.log("uso u call getgenre");
     const genres = yield call(getGenres);
     yield put({type: GENRES_FETCH_DONE, payload: genres})
 }
 
 function* getGenresSaga() {
-    console.log("uso u getGEnresSAga");
-    yield takeLatest(GENRES_FETCH_REQUESTED, callGetGenres);
+   yield takeLatest(GENRES_FETCH_REQUESTED, callGetGenres);
 }
 
 
@@ -56,7 +53,6 @@ function* callgetMostPopularBooks() {
 }
 
 function* getMostPopularBooksSaga() {
-    console.log("uso u getMostPopularBooksSaga");
     yield takeLatest(FETCH_MOST_POPULAR_BOOKS_REQ, callgetMostPopularBooks )
 }
 
@@ -68,8 +64,6 @@ function* callSearchBooks({payload}) {
 }
 
 function* searchBooksSaga() {
-
-    console.log("uso u searchBookSaga");
     yield takeLatest(FETCH_SEARCHED_BOOKS, callSearchBooks );
 }
 
@@ -103,7 +97,7 @@ function* callAddBook({ payload }) {
 }
 
 function* addBookSaga() {
-    console.log("uso u addBookSaga");
+   
     yield takeLatest(ADD_BOOK_REQ, callAddBook);
 }
 
@@ -129,13 +123,13 @@ function* callAddGenre({ payload }) {
 }
 
 function* addGenreSaga() {
-    console.log("uso u addGenreSaga");
+   
     yield takeLatest(ADD_GENRE_REQ, callAddGenre);
 }
 
 
 function* callDeleteBook({payload}) {
-    console.log("uso u callDeleteBook");
+   
     yield call(deleteBook, payload);
 
     const books = yield call(getBooks);
@@ -144,7 +138,7 @@ function* callDeleteBook({payload}) {
 }
 
 function* deleteBookSaga() {
-    console.log("uso u deleteBookSaga");
+    
     yield takeEvery(DELETE_REQ, callDeleteBook);
 }
 
@@ -169,7 +163,7 @@ function* callUpdateBook({payload}) {
 }
 
 function* updateBookSaga() {
-    console.log("uso u updateBookSaga");
+   
     yield takeEvery(UPDATE_REQ, callUpdateBook);
 }
 

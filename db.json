@@ -5,8 +5,8 @@
       "naslov": "Harry Potter",
       "autor": "J. K. Rowling",
       "zanr": "Fantastika",
-      "likes": 42,
-      "dislikes": 6,
+      "likes": 46,
+      "dislikes": 7,
       "brojIzdavanja": 84
     },
     {
@@ -14,16 +14,16 @@
       "naslov": "The Lord of the Rings - The Fellowship of the Ring",
       "autor": "J. R. R. Tolkien",
       "zanr": "Fantastika",
-      "likes": 37,
+      "likes": 39,
       "dislikes": 9,
-      "brojIzdavanja": 117
+      "brojIzdavanja": 118
     },
     {
       "id": 3,
       "naslov": "The Lord of the Rings - The Two Towers",
       "autor": "J. R. R. Tolkien",
       "zanr": "Fantastika",
-      "likes": 19,
+      "likes": 24,
       "dislikes": 0,
       "brojIzdavanja": 154
     },
@@ -32,8 +32,8 @@
       "naslov": "Olujni Bedem",
       "autor": "Dejan Stojiljkovic",
       "zanr": "Istorijski roman",
-      "likes": 7,
-      "dislikes": 0,
+      "likes": 8,
+      "dislikes": 1,
       "brojIzdavanja": 44
     },
     {
@@ -59,9 +59,9 @@
       "naslov": "neka nova",
       "autor": "stefan",
       "zanr": "Istorijski roman",
-      "likes": 1,
-      "dislikes": 0,
-      "brojIzdavanja": 0
+      "likes": 8,
+      "dislikes": 9,
+      "brojIzdavanja": 8
     }
   ],
   "zanr": [
